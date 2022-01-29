@@ -1,6 +1,9 @@
 from flask import Flask, g, render_template, request
 app = Flask(__name__)
 
+# set FLASK_ENV=development
+# flask run
+
 import sqlite3
 
 def get_message_db():
