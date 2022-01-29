@@ -24,11 +24,12 @@ def insert_message(request):
     cursor = g.message_db.cursor()
 
     # count number of rows in table
-    cursor.execute("SELECT COUNT(*) FROM messages")
-    rows = cursor.fetchall()
+    rows = len(cursor.fetchall())
+
+    params = (1 + rows, message, handle)
 
     # insert message into table 
-    cursor.execute("INSERT INTO messages(id, handle, message) VALUES (1 + rows, message, handle)")
+    cursor.execute("INSERT INTO messages(id, handle, message) VALUES (?, ?, ?)", params)
     
     g.message_db.commit()
     g.message_db.close()
@@ -42,4 +43,4 @@ def submit():
 
     else:
         insert_message(request)
-        return render_template('submit-basic.html', thanks = True)
+        return render_template('submit.html', thanks = True)
