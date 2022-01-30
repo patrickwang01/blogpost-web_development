@@ -26,6 +26,7 @@ def insert_message(request):
     # count number of rows in table
     rows = len(cursor.fetchall())
 
+    # set parameters for insertion
     params = (1 + rows, message, handle)
 
     # insert message into table 
@@ -44,3 +45,32 @@ def submit():
     else:
         insert_message(request)
         return render_template('submit.html', thanks = True)
+
+
+def random_messages(n):
+
+    g.message_db = sqlite3.connect("messages_db.sqlite")
+    cursor = g.message_db.cursor()
+
+    params = n
+
+    cursor.execute("SELECT * FROM messages ORDER BY RANDOM() LIMIT ?", params)
+    results = cursor.fetchall()
+
+    m = []
+    h = []
+
+    for i in results:
+        m.append(i[1])
+        h.append(i[2])
+
+    g.message_db.close()
+
+    return m, h
+
+@app.route('/')
+def view():
+    random_messages(5)
+    return render_template('view.html')
+
+
