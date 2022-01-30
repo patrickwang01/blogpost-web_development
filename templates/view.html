@@ -3,3 +3,19 @@
 {% block header %}
   <h1>{% block title %}Random Messages!{% endblock %}</h1>
 {% endblock %}
+
+{% block content %}
+
+<body>
+
+  {% for i in entries %}
+    {{i[1]}} 
+    <li>
+       {{i[2]}}
+    </li>
+    <br>
+  {% endfor %}
+
+</body>
+
+{% endblock %}

@@ -52,25 +52,18 @@ def random_messages(n):
     g.message_db = sqlite3.connect("messages_db.sqlite")
     cursor = g.message_db.cursor()
 
-    params = n
+    params = str(n)
 
-    cursor.execute("SELECT * FROM messages ORDER BY RANDOM() LIMIT ?", params)
+    cursor.execute("SELECT * FROM messages ORDER BY RANDOM() LIMIT (?)", params)
     results = cursor.fetchall()
-
-    m = []
-    h = []
-
-    for i in results:
-        m.append(i[1])
-        h.append(i[2])
 
     g.message_db.close()
 
-    return m, h
+    return results
 
-@app.route('/')
+@app.route('/view')
 def view():
-    random_messages(5)
-    return render_template('view.html')
+    results = random_messages(5)
+    return render_template('view.html', entries = results)
 
 
