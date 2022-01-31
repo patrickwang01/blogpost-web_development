@@ -7,6 +7,8 @@ app = Flask(__name__)
 import sqlite3
 
 def get_message_db():
+
+    # establish connection
     g.message_db = sqlite3.connect("messages_db.sqlite")
     cursor = g.message_db.cursor()
     
@@ -29,7 +31,7 @@ def insert_message(request):
     rows = len(cursor.fetchall())
 
     # set parameters for insertion
-    params = (1 + rows, message, handle)
+    params = (1 + rows, handle, message)
 
     # insert message into table 
     cursor.execute("INSERT INTO messages(id, handle, message) VALUES (?, ?, ?)", params)
@@ -64,6 +66,7 @@ def random_messages(n):
 
     g.message_db.close()
 
+    # 'results' is a list of tuples ('id', 'handle', 'message')
     return results
 
 
