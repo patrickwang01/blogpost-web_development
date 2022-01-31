@@ -8,10 +8,10 @@
 
 <body>
 
-  {% for i in entries %}
-    {{i[2]}} 
+  {% for i in entries %}  <!-- loop through the randomly obtained rows in table -->
+    {{i[2]}}     <!-- print message component -->
     <li>
-       {{i[1]}}
+       {{i[1]}}   <!-- print handle component as a list item -->
     </li>
     <br>
   {% endfor %}
