@@ -17,6 +17,8 @@ def get_message_db():
 
 
 def insert_message(request):
+    
+    # get message and handle inputs from 'submit.html'
     message = request.form["message"]
     handle = request.form["handle"]
 
@@ -39,6 +41,7 @@ def insert_message(request):
 
 @app.route('/', methods = ['POST', 'GET'])
 def submit():
+
     if request.method == "GET":
         return render_template('submit.html')
 
@@ -52,8 +55,10 @@ def random_messages(n):
     g.message_db = sqlite3.connect("messages_db.sqlite")
     cursor = g.message_db.cursor()
 
+    # set input as parameter
     params = str(n)
 
+    # randomly select n rows from table 
     cursor.execute("SELECT * FROM messages ORDER BY RANDOM() LIMIT (?)", params)
     results = cursor.fetchall()
 
@@ -61,9 +66,12 @@ def random_messages(n):
 
     return results
 
+
 @app.route('/view')
 def view():
     results = random_messages(5)
+    
+    # pass list into 'view.html'
     return render_template('view.html', entries = results)
 
 
