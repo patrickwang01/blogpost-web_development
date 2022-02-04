@@ -49,10 +49,6 @@ nav ul li a {
     text-decoration: underline;
 }
 
-a {
-    text-align: center;
-}
-
 .content {
     padding: 0 1rem 1rem;
     background: #d7cec7;
@@ -68,6 +64,5 @@ a {
 }
 
 body li {
-    font-style: italic;
-    
+    font-style: italic; 
 }
